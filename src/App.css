@@ -1,33 +1,92 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-bottom: 1rem;
+  background-color: blue;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header-title {
+  padding-right: 2rem;
+  margin: 0.5rem 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.App-header-description {
+  font-style: italic;
+}
+
+
+.App-header-Search {
+  width: 100%;
+}
+
+.App-header-Search-form {
+  display: inline-flex;
+  width: 100%;
+}
+
+.App-header-Search-input {
+  width: 250px;
+}
+
+.App-header-Search-button {
+  flex-basis: content;
+}
+
+@media only screen and (max-width: 414px) {
+  .App-header-Search-input {
+    flex-grow: 1;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+
+.App-content {
+  display: inline-flex;
+  width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .App-content {
+    display: block;
+  }
+}
+
+
+.App-Map {
+  background-color: gray;
+  display: inline-block;
+  flex-grow: 1;
+  height: 400px;
+}
+
+@media only screen and (max-width: 768px) {
+  .App-Map {
+    display: block;
+    height: 300px;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+
+.App-Restaurants {
+  width: 250px;
+  margin-left: 1rem;
+}
+
+.App-Restaurant {
+  background-color: red;
+  width: 100%;
+}
+
+.App-Restaurant-info {
+  display: block;
+}
+
+@media only screen and (max-width: 768px) {
+  .App-Restaurants {
+    width: 100%;
+    margin-left: 0;
   }
 }
