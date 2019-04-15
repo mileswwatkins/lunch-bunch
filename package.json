@@ -2,7 +2,7 @@
   "name": "lunch-bunch",
   "version": "1.0.0",
   "private": false,
-  "homepage": "https://mileswwatkins.github.io/lunch-bunch",
+  "homepage": "https://mileswwatkins.github.io/lunch-bunch/",
   "dependencies": {
     "google-maps-react": "^2.0.2",
     "lodash": "^4.17.11",

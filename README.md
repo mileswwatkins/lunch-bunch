@@ -2,7 +2,7 @@
 
 Demonstration of React usage with Google Maps and Places HOCs, and responsive design.
 
-[See it live here!](https://mileswwatkins.github.io/lunch-bunch)
+[See it live here!](https://mileswwatkins.github.io/lunch-bunch/)
 
 _Bootstrapped with [Create React App](https://github.com/facebook/create-react-app)._
 
