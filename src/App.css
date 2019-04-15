@@ -1,15 +1,37 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2rem;
+  max-height: calc(100vh - 4rem);
+}
+
+@media only screen and (max-width: 414px) {
+  .App {
+    padding: 0.5rem;
+    max-height: calc(100vh - 1rem);
+  }
+}
+
+
 .App-header {
+  /*
+  Force a known height on the header, to help with styling
+  the `.App-content` element; this will be refactored out later
+  */
+  min-height: 100px;
+  max-height: 100px;
   width: 100%;
   display: inline-flex;
   flex-wrap: wrap;
   align-items: baseline;
   margin-bottom: 1rem;
-  background-color: blue;
 }
 
 .App-header-title {
-  padding-right: 2rem;
-  margin: 0.5rem 0;
+  font-weight: 600;
+  padding-right: 3rem;
+  margin: 0;
 }
 
 .App-header-description {
@@ -18,6 +40,7 @@
 
 
 .App-header-Search {
+  margin-top: 0.5rem;
   width: 100%;
 }
 
@@ -27,11 +50,20 @@
 }
 
 .App-header-Search-input {
-  width: 250px;
+  width: 300px;
+  font-size: 14px;
 }
 
 .App-header-Search-button {
-  flex-basis: content;
+  margin-left: 0.5rem;
+  flex-basis: auto;
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 768px) {
+  .App-header-description {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 414px) {
@@ -43,27 +75,35 @@
 
 .App-content {
   display: inline-flex;
+  flex-direction: row;
   width: 100%;
+  height: 100%;
 }
 
 @media only screen and (max-width: 768px) {
   .App-content {
     display: block;
+    height: auto;
   }
 }
 
 
-.App-Map {
-  background-color: gray;
+.App-MapContainer {
   display: inline-block;
   flex-grow: 1;
-  height: 400px;
+  height: 100%;
+  /*
+  Use a `will-change` value to trick the `absolute`-positioned
+  Google Map HOC into using the container as its containing block
+  https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block
+  */
+  will-change: transform;
 }
 
 @media only screen and (max-width: 768px) {
-  .App-Map {
+  .App-MapContainer {
     display: block;
-    height: 300px;
+    height: 280px;
     width: 100%;
     margin-bottom: 1rem;
   }
@@ -73,20 +113,50 @@
 .App-Restaurants {
   width: 250px;
   margin-left: 1rem;
+  margin-bottom: unset;
+  overflow-y: scroll;
+  height: 100%;
+  /*
+  Deal with issue of restaurants list expanding beyond
+  the bounds of `.App` when new `.Restaurant` elements
+  are added by JS. Refactor this out in a future dev cycle.
+  */
+  max-height: calc(100vh - 4rem - 100px - 1rem);
 }
 
 .App-Restaurant {
-  background-color: red;
   width: 100%;
 }
 
+.App-Restaurant + .App-Restaurant {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 0.5px solid;
+}
+
+.App-Restaurant-title {
+  font-size: 16px;
+  line-height: 1.2rem;
+  margin: 0 0 0.4rem 0;
+}
+
 .App-Restaurant-info {
+  font-size: 14px;
+  line-height: 1.1rem;
   display: block;
+}
+
+.App-Restaurant-info + .App-Restaurant-info {
+  margin-top: 0.15rem
 }
 
 @media only screen and (max-width: 768px) {
   .App-Restaurants {
     width: 100%;
     margin-left: 0;
+    margin-bottom: 1rem;
+    height: auto;
+    max-height: unset;
+    overflow-y: visible;
   }
 }

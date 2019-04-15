@@ -1,9 +1,10 @@
-body {
-  margin: 2rem;
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
-@media only screen and (max-width: 414px) {
-  body {
-    margin: 0.5rem;
-  }
+body {
+  font-family: "Open Sans", Sans-Serif;
 }
