@@ -3,6 +3,7 @@ import {InfoWindow, Map, Marker} from 'google-maps-react'
 import {debounce} from 'lodash'
 import './App.css'
 
+
 class MapContainer extends Component {
   constructor(props) {
     super(props)
@@ -21,20 +22,27 @@ class MapContainer extends Component {
     if (!this.state.activeMarker || this.state.activeMarker === marker) {
       this.setState({
         infoWindowVisible: !this.state.infoWindowVisible,
-        activeRestaurant: markerProps.name,
+        activeRestaurant: markerProps,
         activeMarker: marker
       })
     } else {
       this.setState({
-        activeRestaurant: markerProps.name,
+        activeRestaurant: markerProps,
         activeMarker: marker
       })
     }
+
+    // Scroll the restaurant listing into view
+    const sidebarElement = document.querySelector(`div[data-hook=${markerProps.placeId}]`)
+    sidebarElement.scrollIntoView({behavior: "smooth"})
   }
 
   onMapClick() {
     if (this.state.infoWindowVisible) {
-      this.setState({infoWindowVisible: false})
+      this.setState({
+        infoWindowVisible: false,
+        activeMarker: null
+      })
     }
   }
 
@@ -44,9 +52,7 @@ class MapContainer extends Component {
         <Map
           google={window.google}
           centerAroundCurrentLocation={true}
-          // Zoom level 16 represents a relatively walkable radius,
-          // appropriate for the core user story of this tool
-          zoom={16}
+          zoom={15}
           initialCenter={{lat: 37.79, lng: -122.41}}
           onReady={this.props.retrieveMap}
           onBounds_changed={debounce(this.props.handleMapBoundsChange, 500)}
@@ -63,6 +69,7 @@ class MapContainer extends Component {
           {this.props.results.map(result =>
             <Marker
               key={result.place_id}
+              placeId={result.place_id}
               name={result.name}
               position={result.geometry.location}
               icon={{url: `https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=${result.markerNumber}|FE6256`}}
@@ -74,7 +81,7 @@ class MapContainer extends Component {
             visible={this.state.infoWindowVisible}
           >
             <div>
-              <span>{this.state.activeRestaurant}</span>
+              <span className='App-MapContainer-InfoWindow'>{this.state.activeRestaurant && this.state.activeRestaurant.name}</span>
             </div>
           </InfoWindow>
         </Map>
@@ -82,6 +89,7 @@ class MapContainer extends Component {
     )
   }
 }
+
 
 class Search extends Component {
   constructor(props) {
@@ -140,6 +148,27 @@ class Search extends Component {
   }
 }
 
+
+class Restaurants extends Component {
+  render() {
+    return (
+      <div className="App-Restaurants">
+        {this.props.results.map(result =>
+          <Restaurant
+            key={result.place_id}
+            placeId={result.place_id}
+            markerNumber={result.markerNumber}
+            name={result.name}
+            rating={result.rating}
+            address={result.formatted_address}
+          />
+        )}
+      </div>
+    )
+  }
+}
+
+
 class Restaurant extends Component {
   makeURL(name, address) {
     // In future development cycles, this can be replaced
@@ -151,7 +180,7 @@ class Restaurant extends Component {
 
   render() {
     return (
-      <div className="App-Restaurant">
+      <div className="App-Restaurant" data-hook={this.props.placeId}>
         <h3 className="App-Restaurant-title">
           {`${this.props.markerNumber}. `}
           <a href={this.makeURL(this.props.name, this.props.address)} target={'_blank'}>
@@ -165,23 +194,6 @@ class Restaurant extends Component {
   }
 }
 
-class Restaurants extends Component {
-  render() {
-    return (
-      <div className="App-Restaurants">
-        {this.props.results.map(result =>
-          <Restaurant
-            key={result.place_id}
-            markerNumber={result.markerNumber}
-            name={result.name}
-            rating={result.rating}
-            address={result.formatted_address}
-          />
-        )}
-      </div>
-    )
-  }
-}
 
 class App extends Component {
   constructor(props) {
@@ -265,5 +277,6 @@ class App extends Component {
     )
   }
 }
+
 
 export default App

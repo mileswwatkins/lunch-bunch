@@ -30,12 +30,12 @@
 
 .App-header-title {
   font-weight: 600;
-  padding-right: 3rem;
   margin: 0;
 }
 
 .App-header-description {
   font-style: italic;
+  padding-left: 4rem;
 }
 
 
@@ -100,6 +100,10 @@
   will-change: transform;
 }
 
+.App-MapContainer-InfoWindow {
+  font-size: 16px;
+}
+
 @media only screen and (max-width: 768px) {
   .App-MapContainer {
     display: block;
@@ -129,9 +133,9 @@
 }
 
 .App-Restaurant + .App-Restaurant {
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  border-top: 0.5px solid;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid gray;
 }
 
 .App-Restaurant-title {
